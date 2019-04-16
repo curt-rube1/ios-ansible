@@ -1,0 +1,16 @@
+---
+- name: "Play 1: Save running config to file"
+  connection: network_cli
+  gather_facts: false
+  hosts: "csr-routers"
+  tasks: 
+
+    - name: "Tasks 1: Show running-config"
+      ios_command: 
+        commands:
+          - show running-config
+      register: cli_output
+      
+    - name: "Task 2: write contents to file"
+      copy: content="{{ cli_output.stdout_lines }}" dest=./output/{{ inventory_hostname }}.txt
+...

@@ -1,0 +1,20 @@
+---
+- name: show hostname and version
+  connection: network_cli
+  gather_facts: false
+  hosts: "csr1"
+  tasks: 
+
+    - name: configure interface
+      ios_config: 
+        lines:
+          - no interface loopback1
+        parents: interface Loopback1
+    
+    - name: show interface loopback1
+      ios_command:
+        commands:
+          - show ip interface brief 
+      register: cli_output
+    - debug: var=cli_output.stdout_lines
+...

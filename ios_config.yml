@@ -1,0 +1,12 @@
+---
+- name: configure username and password
+  gather_facts: false
+  hosts: "csr-routers"
+  tasks: 
+
+    - name: configure username
+      ios_config: 
+      lines:
+        - "username root password ansible" 
+
+...

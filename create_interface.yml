@@ -1,0 +1,23 @@
+---
+- name: show hostname and version
+  connection: network_cli
+  gather_facts: false
+  hosts: "csr1"
+  tasks: 
+
+    - name: configure interface
+      ios_config: 
+        lines:
+          - description test interface
+          - ip address 2.2.2.2 255.255.255.0
+        parents: interface Loopback2
+    
+    - name: show interface loopback1
+      ios_command:
+        commands:
+          - show interface loopback2
+          - show ip interface brief 
+      register: cli_output
+    - debug: 
+        var: cli_output.stdout_lines
+...

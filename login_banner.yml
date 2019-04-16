@@ -1,0 +1,23 @@
+---
+- name: configure login banner
+  connection: network_cli
+  gather_facts: false
+  hosts: "csr-routers"
+  tasks: 
+
+    - name: configure login banner
+      ios_banner:
+        banner: login 
+        text: | 
+          *************************************************************
+          *************************************************************
+          
+                WELCOME TO THE CSG NETWORK DEVELOPMENT ENVIRONEMNT 
+
+
+                      THIS BANNER WAS CONFIGURED VIA ANSIBLE
+
+          * ***********************************************************
+          * ***********************************************************
+        state: present
+...
